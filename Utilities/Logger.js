@@ -3,18 +3,20 @@ const fs = require('fs');
 
 class Logger {
 
-    constructor(index) {
-
-        if(!index) throw new Error('Missing index!');
+    constructor() {
 
         this.logbook;
         this.interval;
-        this.index = index;
-        index.logger = this;
+        this.index;
 
     }
 
-    async init() {
+    async init(index) {
+
+        if(!index) throw new Error('Missing index!');
+
+        this.index = index;
+        index.logger = this;
 
         this.print('Starting logger.');
         if(!fs.existsSync('./Website-Logs')) {
@@ -49,6 +51,13 @@ class Logger {
 
         this.log(`[ERROR] ${text}`);
         console.error(`⚠️ [ERROR] ${text}`);
+
+    }
+
+    warn(text) {
+
+        this.log(`[WARNING] ${text}`);
+        console.warn(`⚠️ [WARNING] ${text}`);
 
     }
 
