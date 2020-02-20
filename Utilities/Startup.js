@@ -19,6 +19,7 @@ class Startup {
 
         //Initiate client
         let Client = require('../Structures/Client.js');
+        index.client = new Client(index);
 
     }
 
