@@ -1,0 +1,20 @@
+{
+  "name": "api-test",
+  "version": "0.0.1",
+  "description": "A test of my abilities to create a simple API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node index.js --trace-warnings"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Navy-gif/api-test.git"
+  },
+  "author": "Navy.gif",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Navy-gif/api-test/issues"
+  },
+  "homepage": "https://github.com/Navy-gif/api-test#readme"
+}
