@@ -18,6 +18,7 @@ class CorgiEndpoint extends Endpoint {
 
     }
 
+    //Actual endpoint implementation
     async fetchImage(req, res) {
 
         console.log('lol');

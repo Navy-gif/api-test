@@ -8,6 +8,7 @@ class Endpoint {
 
     }
 
+    //Gets called from the inherited class
     init() {
 
         for(let [method, cb] of this.methods) {
