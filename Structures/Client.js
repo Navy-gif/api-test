@@ -29,7 +29,7 @@ class Client {
         this.app.set('views', path.join(__dirname, 'views'));
         
         //Registry has to be finalized after express has been set up
-        this.registry.init().then(() => console.log('registry done'));
+        this.registry.init().then(() => this.logger.print('Registry done'));
 
     }
 

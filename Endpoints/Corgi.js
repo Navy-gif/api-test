@@ -11,7 +11,7 @@ class CorgiEndpoint extends Endpoint {
         })
 
         this.methods = [
-            ['get', this.fetchImage ]
+            [ 'get', this.fetchImage.bind(this) ]
         ]
 
         this.init();
@@ -21,7 +21,7 @@ class CorgiEndpoint extends Endpoint {
     //Actual endpoint implementation
     async fetchImage(req, res) {
 
-        console.log('lol');
+        res.send({ status: 'ok', code: 200, path: this.path });
 
     }
 

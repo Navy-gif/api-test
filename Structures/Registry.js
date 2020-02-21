@@ -17,6 +17,7 @@ class Registry {
         
         for(let file of endpoints_dir) {
 
+            this.client.logger.print(`Loading endpoint ${file}`);
             file = path.join(dir_path, file);
             let endpoint = require(file);
             if(!endpoint) this.client.logger.warn(`Issue requiring \`${file}\``);
