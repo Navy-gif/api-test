@@ -1,3 +1,5 @@
 /Config
 /node_modules
 /Website-Logs
+host.crt.pem
+host.key.pem
