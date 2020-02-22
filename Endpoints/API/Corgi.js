@@ -1,6 +1,6 @@
-const Endpoint = require('../Structures/Endpoint.js');
+const ApiEndpoint = require('../../Structures/ApiEndpoint.js');
 
-class CorgiEndpoint extends Endpoint {
+class CorgiEndpoint extends ApiEndpoint {
 
     constructor(client) {
 
