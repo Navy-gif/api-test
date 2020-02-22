@@ -3,6 +3,8 @@ const Registry = require('./Registry.js');
 const Express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
+const http = require('http');
+const https = require('https');
 
 class Client {
 
@@ -17,7 +19,8 @@ class Client {
         this.registry = new Registry(this);
 
         this.app = Express();
-        this.app.listen(3000, (err) => { if(err) this.logger.warn(err); else this.logger.print(`Listening on port 3000`) });
+        //this.app.listen(3000, (err) => { if(err) this.logger.warn(err); else this.logger.print(`Listening on port 3000`) });
+        this.server = https.createServer(this.options, this.app).listen(3000);
 
         //Set up rendering engine
         this.app.engine('.hbs', exphbs({
