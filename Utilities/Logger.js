@@ -27,6 +27,12 @@ class Logger {
         this.logbook.write(`====== Website Logbook - ${new Date().toUTCString()} ======\n\n`);
         this.interval = setInterval(() => {this.logbook.write(`\n============ ${new Date().toUTCString()} ============\n`)}, 15*60*1000)
         this.print('Logger started.');
+
+        this.log.bind(this);
+        this.print.bind(this);
+        this.warn.bind(this);
+        this.error.bind(this);
+
         return this;
 
     }
