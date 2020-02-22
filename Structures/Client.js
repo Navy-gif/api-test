@@ -8,7 +8,7 @@ const https = require('https');
 
 class Client {
 
-    constructor(index, options = {}) {
+    constructor(index, options = {  }) {
 
         if(!index) throw new Error('Missing index!');
         this.index = index;
@@ -19,8 +19,16 @@ class Client {
         this.registry = new Registry(this);
 
         this.app = Express();
-        //this.app.listen(3000, (err) => { if(err) this.logger.warn(err); else this.logger.print(`Listening on port 3000`) });
-        this.server = https.createServer(this.options, this.app).listen(3000);
+        
+        if(!this.options.port) this.options.port = 3000;
+
+        if(options.key && options.cert) {
+            this.logger.print(`Starting https server on port ${this.options.port}`)
+            this.server = https.createServer(this.options, this.app).listen(this.options.port);
+        } else {
+            this.logger.print(`Missing cert or key file, starting insecure server on port ${this.options.port}`)
+            this.server = http.createServer(this.app).listen(this.options.port);
+        }
 
         //Set up rendering engine
         this.app.engine('.hbs', exphbs({
@@ -33,6 +41,7 @@ class Client {
         
         //Registry has to be finalized after express has been set up
         this.registry.init().then(() => this.logger.print('Registry done'));
+        //console.log(this.registry.print);
 
     }
 
