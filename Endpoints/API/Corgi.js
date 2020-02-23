@@ -8,11 +8,11 @@ class CorgiEndpoint extends ApiEndpoint {
             client: client,
             path: '/corgi',
             name: 'corgi'
-        })
+        });
 
         this.methods = [
             [ 'get', this.fetchImage.bind(this) ]
-        ]
+        ];
 
         this.init();
 

@@ -8,7 +8,7 @@ class InvalidEndpoint extends ApiEndpoint {
             client: client,
             path: '*',
             name: '404'
-        })
+        });
 
         this.methods = [
             [ 'get', this.call.bind(this) ]
