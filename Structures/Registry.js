@@ -29,6 +29,8 @@ class Registry {
 
             for(let file of endpoints_dir) {
 
+                if(file.name === 'Invalid.js'/* || file.name === 'Website'*/) continue;
+
                 if(file.isDirectory()) read(path.join(pth, file.name));
                 else {
                     self.client.logger.print(`Loading endpoint ${file.name}`);
