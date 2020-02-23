@@ -31,7 +31,7 @@ class Startup {
 
         //Set up database connection
         let Database = require('./Database.js');
-        //index.database = await new Database(index, require('../Config/Mongodb.json')).init();
+        index.database = await new Database(index, require('../Config/Mongodb.json')).init();
 
         //Initiate client
         let key, cert, Client = require('../Structures/Client.js');
