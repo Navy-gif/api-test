@@ -1,0 +1,16 @@
+.navbar {
+    padding: 15px;
+    text-align: right;
+    background-color: violet;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+nav > p#title {
+    text-align: left;
+}
+
+nav > p {
+    display: inline;
+}
