@@ -34,10 +34,11 @@ class Client {
         this.app.engine('.hbs', exphbs({
             defaultLayout: 'main',
             extname: '.hbs',
-            layoutsDir: path.join(__dirname, 'views/layouts')
+            layoutsDir: path.join(this.index.dir, 'Views/Layouts')
         }));
         this.app.set('view engine', '.hbs');
-        this.app.set('views', path.join(__dirname, 'views'));
+        this.app.set('views', path.join(this.index.dir, 'Views/Pages'));
+        this.app.use(Express.static(path.join(this.index.dir, '/Public')));
         
         //Registry has to be finalized after express has been set up
         this.registry.init().then(() => this.logger.print('Registry done'));
