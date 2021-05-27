@@ -31,6 +31,8 @@ class Manager {
             this.logger.warn(e.stack);
         });
 
+        this.dir = process.cwd();
+
         //Set up database connection
         //let Database = require('./Database.js');
         //this.database = await new Database(this, require('../Config/Mongodb.json')).init();
