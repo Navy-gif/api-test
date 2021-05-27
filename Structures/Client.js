@@ -30,6 +30,9 @@ class Client {
             this.server = http.createServer(this.app).listen(this.options.port);
         }
 
+        this.app.use(Express.urlencoded({ extended: true }));
+        this.app.use(Express.json());
+
         //Set up rendering engine
         // this.app.engine('.hbs', exphbs({
         //     defaultLayout: 'main',
