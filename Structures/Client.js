@@ -8,13 +8,13 @@ const https = require('https');
 
 class Client {
 
-    constructor(index, options = {  }) {
+    constructor(manager, options = {  }) {
 
-        if(!index) throw new Error('Missing index!');
-        this.index = index;
+        if (!manager) throw new Error('Missing manager!');
+        this.manager = manager;
         this.options = options;
-        this.logger = index.logger;
-        this.database = index.database;
+        this.logger = manager.logger;
+        this.database = manager.database;
 
         this.registry = new Registry(this);
 
@@ -31,14 +31,14 @@ class Client {
         }
 
         //Set up rendering engine
-        this.app.engine('.hbs', exphbs({
-            defaultLayout: 'main',
-            extname: '.hbs',
-            layoutsDir: path.join(this.index.dir, 'Views/Layouts')
-        }));
-        this.app.set('view engine', '.hbs');
-        this.app.set('views', path.join(this.index.dir, 'Views/Pages'));
-        this.app.use(Express.static(path.join(this.index.dir, '/Public')));
+        // this.app.engine('.hbs', exphbs({
+        //     defaultLayout: 'main',
+        //     extname: '.hbs',
+        //     layoutsDir: path.join(this.manager.dir, 'Views/Layouts')
+        // }));
+        // this.app.set('view engine', '.hbs');
+        // this.app.set('views', path.join(this.manager.dir, 'Views/Pages'));
+        // this.app.use(Express.static(path.join(this.manager.dir, '/Public')));
         
         //Registry has to be finalized after express has been set up
         this.registry.init().then(() => this.logger.print('Registry done'));

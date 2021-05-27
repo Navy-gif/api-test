@@ -20,7 +20,7 @@ class Registry {
 
     async init() {
 
-        let dir_path = path.join(this.client.index.dir, 'Endpoints');
+        let dir_path = path.join(this.client.manager.dir, 'Endpoints');
         let self = this;
 
         (function read(pth) {

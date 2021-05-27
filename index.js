@@ -1,7 +1,5 @@
-module.exports = {
-    debug: true,
-    started: ~~(Date.now()/1000),
-    dir: process.cwd()
-}
+const Manager = require('./Utilities/Manager.js')
+const options = require('./Config/options.json')
 
-require('./Utilities/Startup.js').init(module.exports);
+const manager = new Manager(options);
+manager.init();

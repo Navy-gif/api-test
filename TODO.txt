@@ -1,0 +1,1 @@
+Re-design using a manager file instead of startup

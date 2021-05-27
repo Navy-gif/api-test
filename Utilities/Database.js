@@ -7,33 +7,33 @@ const MongoClient = require('mongodb').MongoClient;
  */
 class Database {
 
-    constructor(index, config) {
+    constructor(manager, config) {
 
-        if(!index) throw new Error('Missing reference to index!')
+        if(!manager) throw new Error('Missing reference to manager!')
         if(!config) throw new Error('No config file provided!');
         if(config && (!config.database || !config.url)) throw new Error('Invalid config file provided!');
 
         this.config = config;
         this.client;
         this.db;
-        this.index = index;
+        this.manager = manager;
+        this.logger = manager.logger
 
     }
 
     async init() {
 
-        this.index.logger.print('Initializing database connection.')
+        this.manager.logger.print('Initializing database connection.')
 
         try {
 
             this.client = await MongoClient.connect(this.config.url+this.config.database, { useUnifiedTopology: true });
-            this.index.db = await this.client.db(this.config.database);
-            this.db = this.index.db;
-            this.index.logger.print('Database connected.');
+            this.db = await this.client.db(this.config.database);
+            this.logger.print('Database connected.');
 
         } catch(err) {
 
-            this.index.logger.error('Database connection failed!\n' + err);
+            this.logger.error('Database connection failed!\n' + err);
 
         }
 
@@ -51,7 +51,7 @@ class Database {
      */
     find(db, query) {
 
-        if(this.index.debug) this.index.logger.debug(`Incoming find query for ${db} with parameters ${JSON.stringify(query)}`);
+        if(this.manager.debug) this.logger.debug(`Incoming find query for ${db} with parameters ${JSON.stringify(query)}`);
         return new Promise((resolve, reject) => {
 
             this.db.collection(db).find(query, async (error, cursor) => {
@@ -75,7 +75,7 @@ class Database {
      */
     findOne(db, query) {
 
-        if(this.index.debug) this.index.logger.debug(`Incoming findOne query for ${db} with parameters ${JSON.stringify(query)}`);
+        if(this.manager.debug) this.logger.debug(`Incoming findOne query for ${db} with parameters ${JSON.stringify(query)}`);
         return new Promise((resolve, reject) => {
 
             this.db.collection(db).findOne(query, async (error, item) => {
@@ -101,8 +101,8 @@ class Database {
      */
     update(db, filter, data) {
 
-        if(this.index.debug) this.index.logger.debug(`Incoming update query for '${db}' with parameters\n${JSON.stringify(query)}\nand data\n${JSON.stringify(data)}`);
-        this.index.logger.warn('Database.update() is deprecated!');
+        if(this.manager.debug) this.logger.debug(`Incoming update query for '${db}' with parameters\n${JSON.stringify(query)}\nand data\n${JSON.stringify(data)}`);
+        this.logger.warn('Database.update() is deprecated!');
         return new Promise((resolve, reject) => {
 
             this.db.collection(db).update(filter, data, async (error, result) => {
@@ -125,7 +125,7 @@ class Database {
      */
     updateOne(db, filter, data, upsert = false) {
 
-        if(this.index.debug) this.index.logger.debug(`Incoming updateOne query for ${db} with parameters ${JSON.stringify(query)}`);
+        if(this.manager.debug) this.logger.debug(`Incoming updateOne query for ${db} with parameters ${JSON.stringify(query)}`);
         return new Promise((resolve, reject) => {
             
             this.db.collection(db).updateOne(filter, { $set: data }, { upsert: upsert }, async (error, result) => {
@@ -154,7 +154,7 @@ class Database {
      */
     push(db, filter, data, upsert = false) {
 
-        if(this.index.debug) this.index.logger.debug(`Incoming push query for ${db}, with upsert ${upsert} and with parameters ${JSON.stringify(filter)} and data ${JSON.stringify(data)}`);
+        if(this.manager.debug) this.logger.debug(`Incoming push query for ${db}, with upsert ${upsert} and with parameters ${JSON.stringify(filter)} and data ${JSON.stringify(data)}`);
         return new Promise((resolve, reject) => {
 
             this.db.collection(db).updateOne(filter, { $push: data }, { upsert: upsert }, async (error, result) => {
@@ -179,7 +179,7 @@ class Database {
      */
     random(db, filter = {}, amount = 1) {
 
-        if(this.index.debug) this.index.logger.debug(`Incoming random query for ${db} with parameters ${JSON.stringify(query)} and amount ${amount}`);
+        if(this.manager.debug) this.logger.debug(`Incoming random query for ${db} with parameters ${JSON.stringify(query)} and amount ${amount}`);
         if(amount>100) amount = 100;
 
         return new Promise((resolve, reject)=>{

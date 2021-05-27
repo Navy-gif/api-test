@@ -7,16 +7,15 @@ class Logger {
 
         this.logbook;
         this.interval;
-        this.index;
+        this.manager;
 
     }
 
-    async init(index) {
+    async init(manager) {
 
-        if(!index) throw new Error('Missing index!');
+        if(!manager) throw new Error('Missing manager!');
 
-        this.index = index;
-        index.logger = this;
+        this.manager = manager;
 
         this.print('Starting logger.');
         if(!fs.existsSync('./Website-Logs')) {
@@ -69,7 +68,7 @@ class Logger {
 
     debug(text) {
 
-        if(!this.index.debug) return;
+        if(!this.manager.debug) return;
         this.log(`[DEBUG] ${text}`); //[${this.debug.caller}]
         console.log(`[DEBUG] ${text}`)
 
