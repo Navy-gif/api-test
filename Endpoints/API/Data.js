@@ -29,7 +29,7 @@ class Data extends ApiEndpoint {
 
     async post(req, res) {
 
-        //res.send({ status: 'OK', message: 'This endpoint should post data for you!', code: 200, path: req.path });
+        res.send({ status: 'OK', message: 'This endpoint should post data for you!', code: 200, path: req.path });
         console.log(req.body);
 
     }
